@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ExampleEntityFormController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Spring MVC Project</a> &gt; <a href="index.source.html" class="el_package">HSL.controller.entity</a> &gt; <span class="el_source">ExampleEntityFormController.java</span></div><h1>ExampleEntityFormController.java</h1><pre class="source lang-java linenums">/**
+ * The MIT License (MIT)
+ * &lt;p&gt;
+ * Copyright (c) 2021 the original author or authors.
+ * &lt;p&gt;
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * &lt;p&gt;
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ * &lt;p&gt;
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+package HSL.controller.entity;
+
+import static com.google.common.base.Preconditions.checkNotNull;
+
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import HSL.service.ExampleEntityService;
+import HSL.model.persistence.DefaultExampleEntity;
+import HSL.model.form.ExampleEntityForm;
+
+/**
+ * Controller for the example entities form view.
+ * &lt;p&gt;
+ * This serves as an adapter between the UI and the services layer.
+ * 
+ * @author Bernardo Mart&amp;iacute;nez Garrido
+ */
+@Controller
+@RequestMapping(&quot;/entity&quot;)
+public class ExampleEntityFormController {
+
+    /**
+     * Example entity service.
+     */
+    private final ExampleEntityService exampleEntityService;
+
+    /**
+     * Constructs a controller with the specified dependencies.
+     * 
+     * @param service
+     *            example entity service
+     */
+    @Autowired
+    public ExampleEntityFormController(final ExampleEntityService service) {
+<span class="fc" id="L69">        super();</span>
+
+<span class="fc" id="L71">        exampleEntityService = checkNotNull(service,</span>
+                &quot;Received a null pointer as service&quot;);
+<span class="fc" id="L73">    }</span>
+
+    /**
+     * Returns the initial entity form data.
+     * 
+     * @return the initial entity form data
+     */
+    @ModelAttribute(ExampleEntityViewConstants.BEAN_FORM)
+    public ExampleEntityForm getEntityForm() {
+<span class="fc" id="L82">        return new ExampleEntityForm();</span>
+    }
+
+    /**
+     * Persists an entity.
+     * 
+     * @param model
+     *            model map
+     * @param form
+     *            form data
+     * @param bindingResult
+     *            binding result
+     * @param response
+     *            HTTP response
+     * @return the next view to show
+     */
+    @PostMapping
+    public String saveEntity(final ModelMap model,
+            @ModelAttribute(ExampleEntityViewConstants.BEAN_FORM) @Valid final ExampleEntityForm form,
+            final BindingResult bindingResult, final HttpServletResponse response) {
+        final String path;
+        final DefaultExampleEntity entity;
+
+<span class="fc bfc" id="L105" title="All 2 branches covered.">        if (bindingResult.hasErrors()) {</span>
+            // Invalid form data
+
+            // Returns to the form view
+<span class="fc" id="L109">            path = ExampleEntityViewConstants.VIEW_ENTITY_FORM;</span>
+
+            // Marks the response as a bad request
+<span class="fc" id="L112">            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);</span>
+        } else {
+
+<span class="fc" id="L115">            entity = new DefaultExampleEntity();</span>
+<span class="fc" id="L116">            entity.setName(form.getName());</span>
+
+<span class="fc" id="L118">            exampleEntityService.add(entity);</span>
+
+            // TODO: This flow decision shouldn't be handled by the controller
+            // TODO: This should be a redirection to the list controller
+            // Loads required data into the model
+<span class="fc" id="L123">            loadViewModel(model);</span>
+
+<span class="fc" id="L125">            path = ExampleEntityViewConstants.VIEW_ENTITY_LIST;</span>
+        }
+
+<span class="fc" id="L128">        return path;</span>
+    }
+
+    /**
+     * Shows the entity edition view.
+     * &lt;p&gt;
+     * Actually it just returns the name of the view. Spring will take care of
+     * the rest.
+     * 
+     * @return the name for the entity edition view
+     */
+    @GetMapping(path = &quot;/edit&quot;)
+    public String showEntityForm() {
+<span class="fc" id="L141">        return ExampleEntityViewConstants.VIEW_ENTITY_FORM;</span>
+    }
+
+    /**
+     * Loads the model data required for the entities listing view.
+     * &lt;p&gt;
+     * As the view will list all the entities, it requires these entities as one
+     * of the parameters.
+     * 
+     * @param model
+     *            model map
+     */
+    private final void loadViewModel(final ModelMap model) {
+<span class="fc" id="L154">        model.put(ExampleEntityViewConstants.PARAM_ENTITIES,</span>
+<span class="fc" id="L155">                exampleEntityService.getAllEntities());</span>
+<span class="fc" id="L156">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

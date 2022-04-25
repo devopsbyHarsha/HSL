@@ -1,0 +1,7 @@
+ERROR | 2022-04-25T22:38:33,197 | H.c.e.GlobalExceptionHandler doResolveException 65 | null
+java.lang.RuntimeException: null
+DEBUG | 2022-04-25T22:38:33,239 | H.c.e.GlobalExceptionHandler resolveException 145 | Resolved [java.lang.RuntimeException] to ModelAndView [view="exception"; model={code=500, message=null}]
+INFO  | 2022-04-25T22:39:50,222 | H.t.i.s.ITDefaultExampleEntityService logStarting 55 | Starting ITDefaultExampleEntityService on DESKTOP-NBGKJR6 with PID 9440 (started by Admin in H:\Course_Videos\Devops\Devops_Pratice\Maven_Pratice\HSL\OFS\OFS)
+DEBUG | 2022-04-25T22:39:50,242 | H.t.i.s.ITDefaultExampleEntityService logStarting 56 | Running with Spring Boot v2.3.4.RELEASE, Spring v5.2.9.RELEASE
+INFO  | 2022-04-25T22:39:50,247 | H.t.i.s.ITDefaultExampleEntityService logStartupProfileInfo 651 | No active profile set, falling back to default profiles: default
+INFO  | 2022-04-25T22:40:04,773 | H.t.i.s.ITDefaultExampleEntityService logStarted 61 | Started ITDefaultExampleEntityService in 15.29 seconds (JVM running for 19.418)

@@ -1,0 +1,12 @@
+HSL\test\unit\controller\report\TestReportController.class
+HSL\test\unit\controller\rest\TestExampleEntityRestControllerPagination.class
+HSL\test\unit\error\TestGlobalExceptionHandler.class
+HSL\test\unit\controller\form\TestExampleEntityFormControllerShowForm.class
+HSL\test\unit\controller\rest\TestExampleEntityRestController.class
+HSL\test\unit\controller\form\TestExampleEntityFormControllerMissingData.class
+HSL\test\unit\validation\TestExampleEntityFormValidation.class
+HSL\test\unit\controller\form\TestExampleEntityFormControllerServiceCalled.class
+HSL\test\integration\service\ITDefaultExampleEntityService.class
+HSL\test\unit\controller\list\TestExampleEntityListViewControllerList.class
+HSL\test\config\UrlConfig.class
+HSL\test\unit\controller\form\TestExampleEntityFormControllerSendForm.class

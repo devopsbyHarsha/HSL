@@ -1,0 +1,68 @@
+/*!
+ * Spring MVC Project general styles
+ * Copyright ${currentYear} Bernardo Mart�nez Garrido
+ * Licensed under the MIT License (http://www.opensource.org/licenses/mit-license.php)
+ *
+ * This file contains general-use styles, meant to be applied to all the pages on the site.
+ */
+
+body {
+    margin: 2em;
+    background-color: #fcfcfc;
+}
+
+body > section {
+    background-color: white;
+    padding: 1em 1em 1em 1em;
+    border: 1px solid #d7d7d7;
+    border-radius: 4px;
+}
+/*!
+ * Spring MVC Project navigation bar icons lists styles
+ * Copyright ${currentYear} Bernardo Mart�nez Garrido
+ * Licensed under the MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * 
+ * This file contains navigation bar icons lists styles.
+ */
+
+/* For vertically centering the list */
+.navbar-main .icons-list a {
+    display: block;
+}
+
+/**
+* Resizing for various screen sizes.
+*/
+
+/* Large Devices, Wide Screens */
+@media only screen and (min-width: 992px) {
+    .navbar-main .icons-list > li > a {
+        margin: 1em 0.3em 1em 0.3em;
+    }
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (min-width: 768px) and (max-width: 992px) {
+    .navbar-main .icons-list > li > a {
+        margin: 1em 0.3em 1em 0.3em;
+    }
+}
+
+/* Small Devices, Tablets */
+@media only screen and (max-width: 768px) {
+    .navbar-main .icons-list > li > a {
+        padding: 0.6em 1em 0.6em 1em;
+        margin: 0 0.1em 0 0.2em;
+    }
+}/*!
+ * Spring MVC Project navigation bar styles
+ * Copyright ${currentYear} Bernardo Mart�nez Garrido
+ * Licensed under the MIT License (http://www.opensource.org/licenses/mit-license.php)
+ *
+ * This file contains styles for the navigation bar.
+ */
+
+.navbar {
+    border: 1px solid #d7d7d7;
+    border-radius: 4px;
+}
